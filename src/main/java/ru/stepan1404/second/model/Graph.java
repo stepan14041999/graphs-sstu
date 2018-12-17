@@ -84,4 +84,39 @@ public class Graph {
             });
         }
     }
+
+    public void printNodeOrderOnDistance(int order, int distance) {
+        Node nodePoint = nodes.stream().filter(node -> node.getOrder().equals(order)).findFirst().orElseThrow(RuntimeException::new);
+        nodePoint.setVisited(true);
+
+        int linkedNodesCount = 1;
+        int workedNodes = 0;
+        int step = 0;
+
+        traversalQueue.add(nodePoint);
+
+        while (!traversalQueue.isEmpty()) {
+            Node nextNode = traversalQueue.remove();
+
+            if (workedNodes == linkedNodesCount) {
+                linkedNodesCount = nextNode.getLinkedNodes().size();
+                workedNodes = 0;
+                step++;
+            }
+
+            for (Node linkedNode : nextNode.getLinkedNodes()) {
+                if (!linkedNode.getVisited()) {
+                    linkedNode.setVisited(true);
+
+                    if (step == distance - 1) {
+                        System.out.print(linkedNode.getOrder());
+                    }
+
+                    traversalQueue.add(linkedNode);
+                }
+            }
+
+            workedNodes++;
+        }
+    }
 }

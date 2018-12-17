@@ -32,6 +32,11 @@ public class App {
 
                 graph.breadthFirstTraversal(1);
                 System.out.println();
+
+                graph.resetVisits();
+
+                graph.printNodeOrderOnDistance(1, 1);
+                System.out.println();
             } catch (NumberFormatException ignored) {
             }
         } else {
